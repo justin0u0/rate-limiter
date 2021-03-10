@@ -1,8 +1,3 @@
-/**
- * Assume that there is no reverse-proxy in front of the API server,
- * so just use req.ip instead of using req.headers['X-Forwarded-For']
- */
-
 import logger from '../libs/logger';
 import redisClient from '../libs/redisClient';
 
@@ -10,8 +5,14 @@ const rateLimiterMiddleware = async (req, res, next) => {
   const hourToSeconds = 3600;
   const maximumRequestsInHour = 1000;
 
+  let { ip } = req;
+  // https://stackoverflow.com/questions/29411551/express-js-req-ip-is-returning-ffff127-0-0-1
+  if (ip.startsWith('::ffff:')) {
+    ip = ip.substr(7);
+  }
+
   try {
-    const rateLimitKey = `rate-limit:${req.ip}`;
+    const rateLimitKey = `rate-limit:${ip}`;
 
     /**
      * 1. Start redis transaction using MULTI command. https://redis.io/commands/incr
@@ -34,7 +35,7 @@ const rateLimiterMiddleware = async (req, res, next) => {
         });
     });
 
-    logger.debug(`[rateLimiterMiddleware] IP ${req.ip}, totalRequestInHour ${totalRequestInHour}, rateLimitReset ${rateLimitReset}.`);
+    logger.debug(`[rateLimiterMiddleware] IP ${ip}, totalRequestInHour ${totalRequestInHour}, rateLimitReset ${rateLimitReset}.`);
 
     if (totalRequestInHour > maximumRequestsInHour) {
       return res.status(429).json({ error: 'Too many requests.' });
