@@ -1,0 +1,19 @@
+{
+  "name": "rate-limiter",
+  "version": "1.0.0",
+  "description": "Implement a rate-limiter middleware.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justin0u0/rate-limiter.git"
+  },
+  "author": "justin0u0",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/justin0u0/rate-limiter/issues"
+  },
+  "homepage": "https://github.com/justin0u0/rate-limiter#readme"
+}
