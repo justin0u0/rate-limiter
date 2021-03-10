@@ -17,7 +17,6 @@ const logger = winston.createLogger({
   transports: [
     new winston.transports.Console({
       level: 'debug',
-      // format: winston.format.combine(winston.format.colorize(), alignColorsAndTime),
       prettyPrint: true,
       colorize: true,
       timestamp: true,

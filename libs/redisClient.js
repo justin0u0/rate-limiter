@@ -1,4 +1,4 @@
-import redis from 'async-redis';
+import redis from 'redis';
 import config from './config';
 import logger from './logger';
 
