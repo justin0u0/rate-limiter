@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  redis:
+    image: redis
+    container_name: rate_limiter_redis
+    volumes:
+      - rate-limiter-redis:/var/lib/redis
+    ports:
+      - '6379:6379'
+    expose:
+      - '6379'
+    restart: always
+    command: redis-server --appendonly yes --requirepass password
+
+volumes:
+  rate-limiter-redis:

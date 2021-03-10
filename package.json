@@ -6,6 +6,8 @@
   "main": "app.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=dev nodemon --es-module-specifier-rsolution=node app.js",
+    "docker-compose.dev:up": "docker-compose -f docker-compose.dev.yml up -d",
+    "docker-compose.dev:down": "docker-compose -f docker-compose.dev.yml down",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
